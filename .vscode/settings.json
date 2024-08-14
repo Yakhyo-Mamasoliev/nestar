@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Kamil", "Myśliwiec", "nestframework", "nestjs"]
+	"cSpell.words": ["Kamil", "Myśliwiec", "nestframework", "nestjs"],
+	"git.ignoreLimitWarning": true
 }
