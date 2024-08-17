@@ -91,7 +91,23 @@ A URI can identify HTML, XML, and other files, while a URL can only identify web
 
 run start:prod may not work on windows, later we run this using docker.container
 
+String - MongoDB schemas
+string - TS primitive datatype => for variables, properties, functions. 
 
+**`index: { unique: true }`** ensures all documents have a unique field value, while **`index: { unique: true, sparse: true }`** ensures uniqueness only among documents that have the field defined.
+when required is true, then no need to use sparse, use sparse when it is optional
+
+memberPassword: {
+		select: false, // not included in query
+	},
+
+registerEnumType => to read enum types in graphQL
+
+capitalizing enum values is a common practice to indicate that they are constants.
+
+PropertySchema.index({ propertyType: 1, propertyLocation: 1, propertyTitle: 1, propertyPrice: 1 }, { unique: true });
+=> 1 is for ascending order, not for unique id; 
+=> unique: true is for uniques while not possible to create 4 same ids
 
 ----------------------------------------------------------------
 */
