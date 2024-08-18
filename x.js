@@ -109,5 +109,21 @@ PropertySchema.index({ propertyType: 1, propertyLocation: 1, propertyTitle: 1, p
 => 1 is for ascending order, not for unique id; 
 => unique: true is for uniques while not possible to create 4 same ids
 
+In GraphQl API Server, we use Resolvers (Controller in MVC) => Resolver=> Models => DB
+
 ----------------------------------------------------------------
+99 Creating Member Module, Resolver va Service
+@Module Decorator Properties
+- providers: Array of providers to be available within the
+module via dependency of injection.
+-controllers: Array of controllers to be instantiated within the module.
+-exports: Array of providers to export to other modules.
+-imports: List of modules required by this module.
+
+-Using models is good feature of AOP
+
+-creating module inside a folder => nest g module component/auth
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
