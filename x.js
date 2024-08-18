@@ -122,8 +122,25 @@ module via dependency of injection.
 
 -Using models is good feature of AOP
 
--creating module inside a folder => nest g module component/auth
+-nestjs terminal commands
+    -nest g module components/auth => creating module inside a folder
+    -nest g service components/member --no-spec => it creates service.ts without spec.ts file
 
+-playground is same as postman in GraphQl, but we use postman for its better interface
 
+-main > app.module > components.module > member.module > resolver > service.model
+
+query = get in RESTAPI
+mutation = post in RESTAPI
+
+@Injectable() vs @Resolver() vs @Module()
+@Injectable() => decorator marks a class as a provider that can be injected into other parts of a NestJS application.
+@Resolver() => Resolvers are responsible for handling GraphQL queries and mutations
+@Module() => is used to define a NestJS module, which organizes the providers, controllers, and other dependencies of your application.
+
+@Injectable() and @Resolver() do not return anything directly, but rather add metadata to the classes they decorate.
+@Module() returns a module metadata object that NestJS uses to configure and manage the  application structure.
+
+in MemberModel we created MemberSchema Object full 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
