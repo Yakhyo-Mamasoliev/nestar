@@ -141,6 +141,10 @@ mutation = post in RESTAPI
 @Injectable() and @Resolver() do not return anything directly, but rather add metadata to the classes they decorate.
 @Module() returns a module metadata object that NestJS uses to configure and manage the  application structure.
 
-in MemberModel we created MemberSchema Object full 
+memberService: MemberService in resolver file => 
+    memberService - object
+    MemberService - class
+
+MemberSchema object is created via Schema class. 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
