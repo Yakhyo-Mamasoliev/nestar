@@ -229,7 +229,11 @@ Pipes can be applied in three ways:
     3. Methods (within Controllers/Resolvers): Applied at the method level, best for small projects.
     We'll start by using pipes within methods to better understand their functionality.
 
-Validation Decorator
+    member.input.ts -> dto for from Front to Backend
+
+    member.ts -> dto for from Back to Front
+
+
 
 -------------------- 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
