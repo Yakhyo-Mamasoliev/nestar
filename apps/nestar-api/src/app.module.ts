@@ -11,7 +11,9 @@ import { ComponentsModule } from './components/components.module';
 @Module({
 	imports: [
 		ConfigModule.forRoot(),
-		GraphQLModule.forRoot({ driver: ApolloDriver, playground: true, uploads: false, autoSchemaFile: true }),
+		GraphQLModule.forRoot({ driver: ApolloDriver, playground: true, 
+		uploads: false, // we rather use graphql-upload
+		autoSchemaFile: true }),
 		ComponentsModule,
 		DatabaseModule,
 	],

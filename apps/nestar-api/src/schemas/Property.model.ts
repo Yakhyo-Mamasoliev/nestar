@@ -93,7 +93,7 @@ const PropertySchema = new Schema(
 		memberId: {
 			type: Schema.Types.ObjectId,
 			required: true,
-			ref: 'Member',
+			ref: 'Member', // property is related to this guy
 		},
 
 		soldAt: {
