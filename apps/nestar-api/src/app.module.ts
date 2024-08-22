@@ -30,7 +30,7 @@ import { T } from './libs/types/common';
 		ComponentsModule,
 		DatabaseModule,
 	],
-	controllers: [AppController], // http
+	controllers: [AppController], // working as REST API and GRAPHQL API
 	providers: [AppService, AppResolver],
 })
 export class AppModule {}
