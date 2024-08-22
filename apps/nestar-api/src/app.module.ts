@@ -17,7 +17,7 @@ import { ComponentsModule } from './components/components.module';
 		ComponentsModule,
 		DatabaseModule,
 	],
-	controllers: [AppController],
+	controllers: [AppController], // http
 	providers: [AppService, AppResolver],
 })
 export class AppModule {}

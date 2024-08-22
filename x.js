@@ -206,7 +206,7 @@ Questions:
 - json format
 
 ---------------------------------------------------------------
-100. Building SignU and Login algorithms 
+100. Building SignUp and Login algorithms 
 Validation Types
 
 1. Frontend Validation: This happens in the user's browser using HTML or JavaScript before data is sent to the server. It checks things like whether fields are filled correctly (e.g., valid email, strong password).
@@ -233,8 +233,13 @@ Pipes can be applied in three ways:
 
     member.ts -> dto for from Back to Front
 
+---------------------------------------
+101. Global Error Handling, Validation, Logging
+Plan: 
+- Global Error Handling, 
+- Validation, 
+- Logging standards
 
-
--------------------- 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------
+------------------------------------------------------------------------------------------------------------------------------------------
 */

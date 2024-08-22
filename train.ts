@@ -1,16 +1,27 @@
-// ZL-TASK:
+// ZM-TASK:
 
-// Shunday function yozing, u parametrda berilgan stringni kebab casega otkazib qaytarsin. Bosh harflarni kichik harflarga ham otkazsin.
-// MASALAN: stringToKebab(“I love Kebab”) return “i-love-kebab”
+// Shunday function yozing, u function parametrga berilgan raqamlarni orqasiga ogirib qaytarsin.
+// MASALAN: reverseInteger(123456789) return 987654321
 
-function stringToKebab(str) {
-	return str
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/^-+|-+$/g, '');
+function reverseInteger(num) {
+	return parseInt(num.toString().split('').reverse().join(''));
 }
 
-console.log(stringToKebab('I love Kebab'));
+console.log(reverseInteger(123456789));
+
+// // ZL-TASK:
+
+// // Shunday function yozing, u parametrda berilgan stringni kebab casega otkazib qaytarsin. Bosh harflarni kichik harflarga ham otkazsin.
+// // MASALAN: stringToKebab(“I love Kebab”) return “i-love-kebab”
+
+// function stringToKebab(str) {
+// 	return str
+// 		.toLowerCase()
+// 		.replace(/[^a-z0-9]+/g, '-')
+// 		.replace(/^-+|-+$/g, '');
+// }
+
+// console.log(stringToKebab('I love Kebab'));
 
 // // ZK-TASK:
 
