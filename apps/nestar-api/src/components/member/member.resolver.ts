@@ -10,25 +10,14 @@ export class MemberResolver {
 
 	@Mutation(() => Member)
 	public async signup(@Args('input') input: MemberInput): Promise<Member> {
-		try {
-			console.log('Mutation: signup');
-			console.log('Input: ', input);
-			return this.memberService.signup(input); // ValidationType above is commented, then it returns. Cos it is being validation with ValidationPipe
-		} catch (err) {
-			console.log('err in signup:', err);
-			throw new InternalServerErrorException(err); // 500 error
-		}
+		console.log('Mutation: signup');
+		return this.memberService.signup(input); // ValidationType above is commented, then it returns. Cos it is being validation with ValidationPipe
 	}
 
 	@Mutation(() => Member)
 	public async login(@Args('input') input: LoginInput): Promise<Member> {
-		try {
-			console.log('Mutation: login');
-			return this.memberService.login(input);
-		} catch (err) {
-			console.log('err in signup:', err);
-			throw new InternalServerErrorException(err); // 500 error
-		}
+		console.log('Mutation: login');
+		return this.memberService.login(input);
 	}
 
 	@Mutation(() => String)

@@ -5,6 +5,7 @@ import { Member } from '../../libs/dto/member/member';
 import { LoginInput, MemberInput } from '../../libs/dto/member/member.input';
 import { MemberStatus } from '../../libs/enums/member.enum';
 import { Message } from '../../libs/enums/common.enum';
+
 @Injectable()
 export class MemberService {
 	constructor(@InjectModel('Member') private readonly memberModel: Model/*Member in DTO*/ <Member>) {}
@@ -16,8 +17,8 @@ export class MemberService {
 			// TODO Authentication  via tokens
 			return result;
 		} catch (err) {
-			console.log('Error, Service.model:', err);
-			throw new BadRequestException(err);
+			console.log('Error, Service.model:', err.message);
+			throw new BadRequestException(Message.USED_MEMBER_NICK_OR_PHONE);
 		}
 	}
 
@@ -35,7 +36,7 @@ export class MemberService {
 		}
 
 		// TODO: Compare passwords
-		console.log('response:', response);
+		//console.log('response:', response);
 		const isMatch = memberPassword === response.memberPassword;
 		if (!isMatch) {
 			throw new InternalServerErrorException(Message.WRONG_PASSWORD);
