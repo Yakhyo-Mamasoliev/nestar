@@ -5,13 +5,17 @@ import { Member } from '../../libs/dto/member/member';
 import { LoginInput, MemberInput } from '../../libs/dto/member/member.input';
 import { MemberStatus } from '../../libs/enums/member.enum';
 import { Message } from '../../libs/enums/common.enum';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class MemberService {
-	constructor(@InjectModel('Member') private readonly memberModel: Model/*Member in DTO*/ <Member>) {}
+	constructor(
+		@InjectModel('Member') private readonly memberModel: Model/*Member in DTO*/ <Member>,
+		private authService: AuthService,
+	) {}
 
 	public async signup(input: MemberInput): Promise<Member> {
-		// ToDO Hash Password
+		input.memberPassword = await this.authService.hashPassword(input.memberPassword);
 		try {
 			const result = await this.memberModel.create(input); // schema validation from DB, try catch is for this alone
 			// TODO Authentication  via tokens
@@ -36,8 +40,8 @@ export class MemberService {
 		}
 
 		// TODO: Compare passwords
-		//console.log('response:', response);
-		const isMatch = memberPassword === response.memberPassword;
+
+		const isMatch = await this.authService.comparePasswords(input.memberPassword, response.memberPassword);
 		if (!isMatch) {
 			throw new InternalServerErrorException(Message.WRONG_PASSWORD);
 		}
