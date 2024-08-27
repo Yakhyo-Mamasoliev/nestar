@@ -1,4 +1,14 @@
 {
-	"cSpell.words": ["ingridients", "Kamil", "Myśliwiec", "nestframework", "nestjs", "RESTAPI", "tarkiibi"],
+	"cSpell.words": [
+		"bson",
+		"gprs",
+		"ingridients",
+		"Kamil",
+		"Myśliwiec",
+		"nestframework",
+		"nestjs",
+		"RESTAPI",
+		"tarkiibi"
+	],
 	"git.ignoreLimitWarning": true
 }
