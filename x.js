@@ -40,6 +40,9 @@
 // 5. Pipes: Transform and validate input data. (DTO)
 // 6. Interceptors: Execute code before and after resolver functions. => who is entering or exiting from the server. In Burak project we did this through request responses.
 
+// Order of Validation
+// Pipes>Guards>Interceptors
+
 // Pipes: checks mostly validation of data, (correct type of data is being communicated among front and backend.)
 // In Burak project we see pipes in two examples, not entering wrong data to backend and not giving wrong data from backend
 
@@ -264,3 +267,5 @@
 // Interface defining the canActivate() function that must be implemented by a guard. Return value indicates whether or not the current request is allowed to proceed. Return can be either synchronous (boolean) or asynchronous (Promise or Observable).
 
 // ExecutionContext => Interface describing details about the current request pipeline.
+
+// Reflector Class: The Reflector class is a utility provided by NestJS that allows you to retrieve metadata associated with classes, methods, or properties. Metadata in this context refers to additional information that you can attach to these elements, often through decorators.
