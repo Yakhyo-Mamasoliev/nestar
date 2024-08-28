@@ -1,18 +1,42 @@
-// Shunday function yozing, uni array va number parametri bolsin. Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
-// MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4]
+// ZO-TASK:
 
-function rotateArray(arr: number[], index: number): number[] {
-	index = (index + 1) % arr.length;
+// Shunday function yozing, u parametrdagi string ichidagi qavslar miqdori balansda ekanligini aniqlasin. Ya'ni ochish("(") va yopish(")") qavslar soni bir xil bolishi kerak.
+// MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return true
+function areParenthesesBalanced(s: string): boolean {
+	let balance = 0;
 
-	const firstPart = arr.slice(index);
-	const secondPart = arr.slice(0, index);
+	for (const char of s) {
+		if (char === '(') {
+			balance++;
+		} else if (char === ')') {
+			balance--;
+		}
 
-	return firstPart.concat(secondPart);
+		if (balance < 0) {
+			return false;
+		}
+	}
+
+	return balance === 0;
 }
 
-const originalArray = [1, 2, 3, 4, 5, 6];
-const rotatedArray = rotateArray(originalArray, 3);
-console.log(rotatedArray);
+console.log(areParenthesesBalanced('string()ichida(qavslar)soni()balansda'));
+
+// // Shunday function yozing, uni array va number parametri bolsin. Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
+// // MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4]
+
+// function rotateArray(arr: number[], index: number): number[] {
+// 	index = (index + 1) % arr.length;
+
+// 	const firstPart = arr.slice(index);
+// 	const secondPart = arr.slice(0, index);
+
+// 	return firstPart.concat(secondPart);
+// }
+
+// const originalArray = [1, 2, 3, 4, 5, 6];
+// const rotatedArray = rotateArray(originalArray, 3);
+// console.log(rotatedArray);
 // // ZM-TASK:
 
 // // Shunday function yozing, u function parametrga berilgan raqamlarni orqasiga ogirib qaytarsin.
