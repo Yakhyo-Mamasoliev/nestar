@@ -27,14 +27,16 @@ export class MemberResolver {
 		return this.memberService.login(input);
 	}
 
+	//Authenticated
 	@UseGuards(AuthGuard)
-	@Mutation(() => String)
-	public async updateMember (@Args("input") input:MemberUpdate, @AuthMember('_id') memberId: ObjectId): Promise<Member> {
-		console.log('Mutation: updateMember');
+	@Mutation(() => Member)
+	public async updateMember(
+		@Args('input') input: MemberUpdate,
+		@AuthMember('_id') memberId: ObjectId,
+	): Promise<Member> {
+		console.log('memberId:', memberId);
 		delete input._id;
-		console.log("memberId:", memberId);
 		return this.memberService.updateMember(memberId, input);
-
 	}
 
 	@UseGuards(AuthGuard)
@@ -46,7 +48,7 @@ export class MemberResolver {
 	}
 
 	@Roles(MemberType.USER, MemberType.AGENT)
-	@UseGuards(RolesGuard) 
+	@UseGuards(RolesGuard)
 	@Query(() => String)
 	public async checkAuthRoles(@AuthMember() authMember: Member): Promise<string> {
 		console.log('Query: checkAuthRoles');
