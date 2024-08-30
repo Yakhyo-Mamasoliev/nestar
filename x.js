@@ -269,3 +269,15 @@
 // ExecutionContext => Interface describing details about the current request pipeline.
 
 // Reflector Class: The Reflector class is a utility provided by NestJS that allows you to retrieve metadata associated with classes, methods, or properties. Metadata in this context refers to additional information that you can attach to these elements, often through decorators.
+
+// ==============================
+// 2024-08-30
+// 106rd Lesson
+// Uploading Files using GRAPHQL
+// 1) graphql-upload package
+// 2) imageUploader GraphQL API
+// 3) imagesUploader GraphQL API
+
+// ------------------------------
+
+// graphql-uploader package => file uploads via queries and mutations to various Node.js GraphQL servers.

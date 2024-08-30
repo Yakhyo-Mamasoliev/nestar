@@ -1,26 +1,56 @@
-// ZO-TASK:
+// ZP-TASK:
 
-// Shunday function yozing, u parametrdagi string ichidagi qavslar miqdori balansda ekanligini aniqlasin. Ya'ni ochish("(") va yopish(")") qavslar soni bir xil bolishi kerak.
-// MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return true
-function areParenthesesBalanced(s: string): boolean {
-	let balance = 0;
+// shunday function yozing, u 2 ta array parametr qabul qilsin. Siz bu ikki arrayning qiymatlari o'xshash bo'lishini (ya'ni, ularning barcha elementlari bir xil bo'lishini) tekshirishingiz kerak.
 
-	for (const char of s) {
-		if (char === '(') {
-			balance++;
-		} else if (char === ')') {
-			balance--;
-		}
+// MASALAN: 
+// areArraysEqual([1, 2, 3], [3, 1, 2]) // true
+// areArraysEqual([1, 2, 3], [3, 1, 2, 1]) // true
+// areArraysEqual([1, 2, 3], [4, 1, 2]) // false
+function areArraysEqual(arr1: number[], arr2: number[]): boolean {
+    const set1 = new Set(arr1);
+    const set2 = new Set(arr2);
 
-		if (balance < 0) {
-			return false;
-		}
-	}
+    if (set1.size !== set2.size) {
+        return false;
+    }
 
-	return balance === 0;
+    for (let item of set1) {
+        if (!set2.has(item)) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
-console.log(areParenthesesBalanced('string()ichida(qavslar)soni()balansda'));
+// Examples:
+console.log(areArraysEqual([1, 2, 3], [3, 1, 2])); // true
+console.log(areArraysEqual([1, 2, 3], [3, 1, 2, 1])); // true
+console.log(areArraysEqual([1, 2, 3], [4, 1, 2])); // false
+
+// // ZO-TASK:
+
+// // Shunday function yozing, u parametrdagi string ichidagi qavslar miqdori balansda ekanligini aniqlasin. Ya'ni ochish("(") va yopish(")") qavslar soni bir xil bolishi kerak.
+// // MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return true
+// function areParenthesesBalanced(s: string): boolean {
+// 	let balance = 0;
+
+// 	for (const char of s) {
+// 		if (char === '(') {
+// 			balance++;
+// 		} else if (char === ')') {
+// 			balance--;
+// 		}
+
+// 		if (balance < 0) {
+// 			return false;
+// 		}
+// 	}
+
+// 	return balance === 0;
+// }
+
+// console.log(areParenthesesBalanced('string()ichida(qavslar)soni()balansda'));
 
 // // Shunday function yozing, uni array va number parametri bolsin. Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
 // // MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4]

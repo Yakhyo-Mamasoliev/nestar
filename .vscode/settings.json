@@ -8,7 +8,8 @@
 		"nestframework",
 		"nestjs",
 		"RESTAPI",
-		"tarkiibi"
+		"tarkiibi",
+		"uuidv"
 	],
 	"git.ignoreLimitWarning": true
 }
