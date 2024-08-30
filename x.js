@@ -281,3 +281,13 @@
 // ------------------------------
 
 // graphql-uploader package => file uploads via queries and mutations to various Node.js GraphQL servers.
+
+// { createReadStream, filename, mimetype }: FileUpload,
+// createReadStream: This is a function that creates a readable stream for the uploaded file. A readable stream allows you to read the file's contents in chunks, which is useful for processing large files without loading the entire file into memory.
+// filename: This is a string that represents the name of the uploaded file. It is the original name of the file as provided by the client.
+// mimetype: This is a string that indicates the MIME type of the uploaded file. The MIME type tells you the type of file being uploaded (e.g., image/jpeg for a JPEG image or application/pdf for a PDF document).
+
+// Cross site request forgery (CSRF) is a vulnerability where an attacker performs actions while impersonating another user. For example, transferring funds to an attacker's account, changing a victim's email address, or they could even just redirect a pizza to an attacker's address!
+
+// app.enableCors({ origin: true, credentials: true });
+// Enables Cross-Origin Resource Sharing (CORS) with any origin allowed and credentials (like cookies) included in requests.
