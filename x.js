@@ -291,3 +291,14 @@
 
 // app.enableCors({ origin: true, credentials: true });
 // Enables Cross-Origin Resource Sharing (CORS) with any origin allowed and credentials (like cookies) included in requests.
+
+// ==============================
+// 2024-08-30
+// 107 Lesson
+// createProperty GraphQL AP
+// 1) Property Module, Resolver, Service Model
+// 2) Property GraphQL API
+// 3) data collection statistics
+
+// ------------------------------
+
