@@ -1,121 +1,145 @@
-// ZP-TASK:
+// ZQ-TASK:
 
-// shunday function yozing, u 2 ta array parametr qabul qilsin. Siz bu ikki arrayning qiymatlari o'xshash bo'lishini (ya'ni, ularning barcha elementlari bir xil bo'lishini) tekshirishingiz kerak.
+// Shunday function yozing, u parametridagi array ichida 2 marta qaytarilgan sonlarni alohida araryda qaytarsin.
+// MASALAN: findDuplicates([1,2,3,4,5,4,3,4]) return [3, 4]
 
-// MASALAN: 
-// areArraysEqual([1, 2, 3], [3, 1, 2]) // true
-// areArraysEqual([1, 2, 3], [3, 1, 2, 1]) // true
-// areArraysEqual([1, 2, 3], [4, 1, 2]) // false
-function areArraysEqual(arr1: number[], arr2: number[]): boolean {
-    const set1 = new Set(arr1);
-    const set2 = new Set(arr2);
+function findDuplicates(arr: number[]): number[] {
+	const elementCount: { [key: number]: number } = {};
+	const duplicates: number[] = [];
 
-    if (set1.size !== set2.size) {
-        return false;
-    }
+	for (const num of arr) {
+		elementCount[num] = (elementCount[num] || 0) + 1;
+	}
 
-    for (let item of set1) {
-        if (!set2.has(item)) {
-            return false;
-        }
-    }
+	for (const num in elementCount) {
+		if (elementCount[num] > 1) {
+			duplicates.push(Number(num));
+		}
+	}
 
-    return true;
+	return duplicates;
 }
 
-// Examples:
-console.log(areArraysEqual([1, 2, 3], [3, 1, 2])); // true
-console.log(areArraysEqual([1, 2, 3], [3, 1, 2, 1])); // true
-console.log(areArraysEqual([1, 2, 3], [4, 1, 2])); // false
+console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
 
-// // ZO-TASK:
+// // ZP-TASK:
 
-// // Shunday function yozing, u parametrdagi string ichidagi qavslar miqdori balansda ekanligini aniqlasin. Ya'ni ochish("(") va yopish(")") qavslar soni bir xil bolishi kerak.
-// // MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return true
-// function areParenthesesBalanced(s: string): boolean {
-// 	let balance = 0;
+// // shunday function yozing, u 2 ta array parametr qabul qilsin. Siz bu ikki arrayning qiymatlari o'xshash bo'lishini (ya'ni, ularning barcha elementlari bir xil bo'lishini) tekshirishingiz kerak.
 
-// 	for (const char of s) {
-// 		if (char === '(') {
-// 			balance++;
-// 		} else if (char === ')') {
-// 			balance--;
-// 		}
+// // MASALAN:
+// // areArraysEqual([1, 2, 3], [3, 1, 2]) // true
+// // areArraysEqual([1, 2, 3], [3, 1, 2, 1]) // true
+// // areArraysEqual([1, 2, 3], [4, 1, 2]) // false
+// function areArraysEqual(arr1: number[], arr2: number[]): boolean {
+//     const set1 = new Set(arr1);
+//     const set2 = new Set(arr2);
 
-// 		if (balance < 0) {
-// 			return false;
-// 		}
-// 	}
+//     if (set1.size !== set2.size) {
+//         return false;
+//     }
 
-// 	return balance === 0;
+//     for (let item of set1) {
+//         if (!set2.has(item)) {
+//             return false;
+//         }
+//     }
+
+//     return true;
 // }
 
-// console.log(areParenthesesBalanced('string()ichida(qavslar)soni()balansda'));
+// // Examples:
+// console.log(areArraysEqual([1, 2, 3], [3, 1, 2])); // true
+// console.log(areArraysEqual([1, 2, 3], [3, 1, 2, 1])); // true
+// console.log(areArraysEqual([1, 2, 3], [4, 1, 2])); // false
 
-// // Shunday function yozing, uni array va number parametri bolsin. Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
-// // MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4]
+// // // ZO-TASK:
 
-// function rotateArray(arr: number[], index: number): number[] {
-// 	index = (index + 1) % arr.length;
+// // // Shunday function yozing, u parametrdagi string ichidagi qavslar miqdori balansda ekanligini aniqlasin. Ya'ni ochish("(") va yopish(")") qavslar soni bir xil bolishi kerak.
+// // // MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return true
+// // function areParenthesesBalanced(s: string): boolean {
+// // 	let balance = 0;
 
-// 	const firstPart = arr.slice(index);
-// 	const secondPart = arr.slice(0, index);
+// // 	for (const char of s) {
+// // 		if (char === '(') {
+// // 			balance++;
+// // 		} else if (char === ')') {
+// // 			balance--;
+// // 		}
 
-// 	return firstPart.concat(secondPart);
-// }
+// // 		if (balance < 0) {
+// // 			return false;
+// // 		}
+// // 	}
 
-// const originalArray = [1, 2, 3, 4, 5, 6];
-// const rotatedArray = rotateArray(originalArray, 3);
-// console.log(rotatedArray);
-// // ZM-TASK:
+// // 	return balance === 0;
+// // }
 
-// // Shunday function yozing, u function parametrga berilgan raqamlarni orqasiga ogirib qaytarsin.
-// // MASALAN: reverseInteger(123456789) return 987654321
+// // console.log(areParenthesesBalanced('string()ichida(qavslar)soni()balansda'));
 
-// function reverseInteger(num) {
-// 	return parseInt(num.toString().split('').reverse().join(''));
-// }
+// // // Shunday function yozing, uni array va number parametri bolsin. Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
+// // // MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4]
 
-// console.log(reverseInteger(123456789));
+// // function rotateArray(arr: number[], index: number): number[] {
+// // 	index = (index + 1) % arr.length;
 
-// // ZL-TASK:
+// // 	const firstPart = arr.slice(index);
+// // 	const secondPart = arr.slice(0, index);
 
-// // Shunday function yozing, u parametrda berilgan stringni kebab casega otkazib qaytarsin. Bosh harflarni kichik harflarga ham otkazsin.
-// // MASALAN: stringToKebab(“I love Kebab”) return “i-love-kebab”
+// // 	return firstPart.concat(secondPart);
+// // }
 
-// function stringToKebab(str) {
-// 	return str
-// 		.toLowerCase()
-// 		.replace(/[^a-z0-9]+/g, '-')
-// 		.replace(/^-+|-+$/g, '');
-// }
+// // const originalArray = [1, 2, 3, 4, 5, 6];
+// // const rotatedArray = rotateArray(originalArray, 3);
+// // console.log(rotatedArray);
+// // // ZM-TASK:
 
-// console.log(stringToKebab('I love Kebab'));
+// // // Shunday function yozing, u function parametrga berilgan raqamlarni orqasiga ogirib qaytarsin.
+// // // MASALAN: reverseInteger(123456789) return 987654321
 
-// // ZK-TASK:
+// // function reverseInteger(num) {
+// // 	return parseInt(num.toString().split('').reverse().join(''));
+// // }
 
-// // Shunday function yozing, u har soniyada bir marta consolega 1 dan 5 gacha bolgan raqamlarni chop etsin va 5 soniyadan keyin ishini toxtatsin.
-// // MASALAN: printNumbers()
+// // console.log(reverseInteger(123456789));
 
-// function printNumbers() {
-// 	let number = 1;
-// 	const intervalId = setInterval(() => {
-// 		console.log(number);
-// 		if (number === 5) {
-// 			clearInterval(intervalId);
-// 		}
-// 		number++;
-// 	}, 1000);
-// }
+// // // ZL-TASK:
 
-// printNumbers();
+// // // Shunday function yozing, u parametrda berilgan stringni kebab casega otkazib qaytarsin. Bosh harflarni kichik harflarga ham otkazsin.
+// // // MASALAN: stringToKebab(“I love Kebab”) return “i-love-kebab”
 
-// // ZJ-TASK:
+// // function stringToKebab(str) {
+// // 	return str
+// // 		.toLowerCase()
+// // 		.replace(/[^a-z0-9]+/g, '-')
+// // 		.replace(/^-+|-+$/g, '');
+// // }
 
-// // Shunday function yozing, u berilgan arrayni ichidagi numberlarni qiymatini hisoblab qaytarsin.
-// // MASALAN: reduceNestedArray([1, [1, 2, [4]]]) return 8
+// // console.log(stringToKebab('I love Kebab'));
 
-// function reduceNestedArray(arr) {
-// 	return arr.flat(Infinity).reduce((sum, num) => sum + num, 0);
-// }
-// console.log(reduceNestedArray([1, [1, 2, [4]]]));
+// // // ZK-TASK:
+
+// // // Shunday function yozing, u har soniyada bir marta consolega 1 dan 5 gacha bolgan raqamlarni chop etsin va 5 soniyadan keyin ishini toxtatsin.
+// // // MASALAN: printNumbers()
+
+// // function printNumbers() {
+// // 	let number = 1;
+// // 	const intervalId = setInterval(() => {
+// // 		console.log(number);
+// // 		if (number === 5) {
+// // 			clearInterval(intervalId);
+// // 		}
+// // 		number++;
+// // 	}, 1000);
+// // }
+
+// // printNumbers();
+
+// // // ZJ-TASK:
+
+// // // Shunday function yozing, u berilgan arrayni ichidagi numberlarni qiymatini hisoblab qaytarsin.
+// // // MASALAN: reduceNestedArray([1, [1, 2, [4]]]) return 8
+
+// // function reduceNestedArray(arr) {
+// // 	return arr.flat(Infinity).reduce((sum, num) => sum + num, 0);
+// // }
+// // console.log(reduceNestedArray([1, [1, 2, [4]]]));
