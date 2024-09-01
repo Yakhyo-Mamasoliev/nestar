@@ -68,10 +68,8 @@ export class Property {
 	@Field(() => Date, { nullable: true })
 	deletedAt?: Date;
 
-	
 	@Field(() => Date, { nullable: true })
 	constructedAt?: Date;
-
 
 	//----------------
 
@@ -81,6 +79,6 @@ export class Property {
 	@Field(() => Date)
 	updatedAt?: Date;
 
-	@Field(() => Member,{ nullable: true })
-    memberData?: Member;
+	@Field(() => Member, { nullable: true })
+	memberData?: Member;
 }
