@@ -11,7 +11,7 @@ import {
 } from '../../libs/dto/property/property.input';
 import { MemberService } from '../member/member.service';
 import { PropertyUpdate } from '../../libs/dto/property/property.update';
-import { T } from '../../libs/types/common';
+import { StatisticModifier, T } from '../../libs/types/common';
 import { PropertyStatus } from '../../libs/enums/property.enum';
 import moment from 'moment';
 import { lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
@@ -236,5 +236,10 @@ export class PropertyService {
 		}
 
 		return result;
+	}
+
+	public async propertyStatsEditor(input: StatisticModifier): Promise<Property> {
+		const { _id, targetKey, modifier } = input;
+		return await this.propertyModel.findByIdAndUpdate(_id, { $inc: { [targetKey]: modifier } }, { new: true }).exec();
 	}
 }
