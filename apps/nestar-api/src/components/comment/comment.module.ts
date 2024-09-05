@@ -9,7 +9,7 @@ import { PropertyModule } from '../property/property.module';
 import { BoardArticleModule } from '../board-article/board-article.module';
 
 @Module({
-  imports: [
+	imports: [
 		MongooseModule.forFeature([
 			{
 				name: 'Comment',
@@ -17,10 +17,10 @@ import { BoardArticleModule } from '../board-article/board-article.module';
 			},
 		]),
 		AuthModule,
-    PropertyModule,
-    MemberModule,
-    BoardArticleModule
+		PropertyModule,
+		MemberModule,
+		BoardArticleModule,
 	],
-  providers: [CommentService, CommentResolver]
+	providers: [CommentService, CommentResolver],
 })
 export class CommentModule {}
