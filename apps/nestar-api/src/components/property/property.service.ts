@@ -10,28 +10,53 @@ import {
 	PropertyInput,
 } from '../../libs/dto/property/property.input';
 import { MemberService } from '../member/member.service';
-import { PropertyUpdate } from '../../libs/dto/property/property.update';
 import { StatisticModifier, T } from '../../libs/types/common';
 import { PropertyStatus } from '../../libs/enums/property.enum';
-import moment from 'moment';
+import { ViewGroup } from '../../libs/enums/view.enum';
+import { ViewService } from '../view/view.service';
+import * as moment from 'moment';
+import { PropertyUpdate } from '../../libs/dto/property/property.update';
 import { lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
+import { ViewInput } from '../../libs/dto/view/view';
 
 @Injectable()
 export class PropertyService {
 	constructor(
 		@InjectModel('Property') private readonly propertyModel: Model<Property>,
 		private memberService: MemberService,
+		private viewService: ViewService,
 	) {}
-
 	public async createProperty(input: PropertyInput): Promise<Property> {
 		try {
-			const result = await this.propertyModel.create(input); // schema validation from DB, try catch is for this alone
+			const result = await this.propertyModel.create(input);
 			await this.memberService.memberStatsEditor({ _id: result.memberId, targetKey: 'memberProperties', modifier: 1 });
+
 			return result;
 		} catch (err) {
-			console.log('Error, Property.model:', err.message);
-			throw new BadRequestException(Message.CREATE_FAILED);
+			console.log('Error, Service.model:', err.message);
+			throw new BadRequestException(Message.USED_MEMBER_NICK_OR_PHONE);
 		}
+	}
+
+	public async getProperty(memberId: ObjectId, propertyId: ObjectId): Promise<Property> {
+		const search: T = {
+			_id: propertyId,
+			propertyStatus: PropertyStatus.ACTIVE,
+		};
+
+		const targetProperty: Property = await this.propertyModel.findOne(search).lean().exec();
+		if (!targetProperty) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
+
+		if (memberId) {
+			const viewInput: ViewInput = { memberId: memberId, viewRefId: propertyId, viewGroup: ViewGroup.PROPERTY };
+			const newView = await this.viewService.recordView(viewInput);
+			if (newView) {
+				await this.propertyStatsEditor({ _id: propertyId, targetKey: 'propertyViews', modifier: 1 });
+				targetProperty.propertyViews++;
+			}
+		}
+		targetProperty.memberData = await this.memberService.getMember(null, targetProperty.memberId);
+		return targetProperty;
 	}
 
 	public async updateProperty(memberId: ObjectId, input: PropertyUpdate): Promise<Property> {
@@ -227,6 +252,7 @@ export class PropertyService {
 
 		return result;
 	}
+
 	public async removePropertyByAdmin(propertyId: ObjectId): Promise<Property> {
 		const search: T = { _id: propertyId, propertyStatus: PropertyStatus.DELETE };
 		const result = await this.propertyModel.findOneAndDelete(search).exec();
@@ -240,6 +266,14 @@ export class PropertyService {
 
 	public async propertyStatsEditor(input: StatisticModifier): Promise<Property> {
 		const { _id, targetKey, modifier } = input;
-		return await this.propertyModel.findByIdAndUpdate(_id, { $inc: { [targetKey]: modifier } }, { new: true }).exec();
+		return await this.propertyModel
+			.findByIdAndUpdate(
+				_id,
+				{
+					$inc: { [targetKey]: modifier },
+				},
+				{ new: true },
+			)
+			.exec();
 	}
 }

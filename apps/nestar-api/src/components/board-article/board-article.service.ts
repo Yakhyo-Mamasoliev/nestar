@@ -4,7 +4,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { BoardArticle, BoardArticles } from '../../libs/dto/board-article/board-article';
 import { MemberService } from '../member/member.service';
 import { ViewService } from '../view/view.service';
-import { AllBoardArticlesInquiry, BoardArticleInput, BoardArticlesInquiry } from '../../libs/dto/board-article/board-article.input';
+import {
+	AllBoardArticlesInquiry,
+	BoardArticleInput,
+	BoardArticlesInquiry,
+} from '../../libs/dto/board-article/board-article.input';
 import { ViewGroup } from '../../libs/enums/view.enum';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { BoardArticleStatus } from '../../libs/enums/board-article.enum';
@@ -112,7 +116,7 @@ export class BoardArticleService {
 	public async boardArticleStatsEditor(input: StatisticModifier): Promise<BoardArticle> {
 		const { _id, targetKey, modifier } = input;
 		return await this.boardArticleModel
-			.findOneAndUpdate(
+			.findByIdAndUpdate(
 				_id,
 				{
 					$inc: { [targetKey]: modifier },
