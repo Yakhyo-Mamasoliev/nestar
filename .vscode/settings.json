@@ -11,7 +11,8 @@
 		"nestjs",
 		"RESTAPI",
 		"tarkiibi",
-		"uuidv"
+		"uuidv",
+		"websockets"
 	],
 	"git.ignoreLimitWarning": true
 }
