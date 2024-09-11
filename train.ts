@@ -1,13 +1,42 @@
-// ZS-TASK:
+// 2024-09-11
+// MIT 14
 
-// Shunday function yozing, u parametridagi arrayni ichidagi 1 marta kelgan elemnetni qaytarsin.
-// MASALAN: singleNumber([4, 2, 1, 2, 1]) return 4
+// TASK ZT:
 
-function singleNumber(arr) {
-	return arr.find((num) => arr.indexOf(num) === arr.lastIndexOf(num));
+// Shunday function yozing, bu function parametrdagi string ichida
+// bir marotabadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin
+
+// MASALAN: firstUniqueCharIndex(“stamp”); return 0;
+
+// Yuqoridagi misolda, 'stamp' so'zi tarkibida barcha harflar bir marotabadan
+// ortiq takrorlanmagan, lekin shartga muvofiq, birinchi topilgan harf indeksi qaytarilmoqda.
+function firstUniqueCharIndex(s: string): number {
+	for (let i = 0; i < s.length; i++) {
+		let unique = true;
+		for (let j = 0; j < s.length; j++) {
+			if (i !== j && s[i] === s[j]) {
+				unique = false;
+				break;
+			}
+		}
+		if (unique) return i;
+	}
+
+	return -1;
 }
 
-console.log(singleNumber([4, 2, 1, 2, 1]));
+console.log(firstUniqueCharIndex('stamp'));
+
+// // ZS-TASK:
+
+// // Shunday function yozing, u parametridagi arrayni ichidagi 1 marta kelgan elemnetni qaytarsin.
+// // MASALAN: singleNumber([4, 2, 1, 2, 1]) return 4
+
+// function singleNumber(arr) {
+// 	return arr.find((num) => arr.indexOf(num) === arr.lastIndexOf(num));
+// }
+
+// console.log(singleNumber([4, 2, 1, 2, 1]));
 
 // // ZQ-TASK:
 
