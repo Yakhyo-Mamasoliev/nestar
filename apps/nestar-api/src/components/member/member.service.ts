@@ -13,11 +13,14 @@ import { ViewGroup } from '../../libs/enums/view.enum';
 import { LikeInput } from '../../libs/dto/like/like.input';
 import { LikeGroup } from '../../libs/enums/like.enum';
 import { LikeService } from '../like/like.service';
+import { Follower, Following, MeFollowed } from "../../libs/dto/follow/follow";
 
 @Injectable()
 export class MemberService {
 	constructor(
 		@InjectModel('Member') private readonly memberModel: Model/*Member in DTO*/ <Member>,
+		@InjectModel('Follow') private readonly followModel: Model<Follower | Following>,
+
 		private authService: AuthService,
 		private viewService: ViewService,
 		private likeService: LikeService,
@@ -92,9 +95,14 @@ export class MemberService {
 				likeGroup: LikeGroup.MEMBER,
 			};
 			targetMember.meLiked = await this.likeService.checkLikeExistence(likeInput);
-			
+			targetMember.meFollowed = await this.checkSubscription(memberId, targetId);
 		}
 		return targetMember;
+	}
+
+	private async checkSubscription(followerId: ObjectId, followingId: ObjectId): Promise<MeFollowed[]> {
+		const result = await this.followModel.findOne({ followingId: followingId, followerId: followerId }).exec();
+		return result ? [{ followerId: followerId, followingId: followingId, myFollowing: true }] : [];
 	}
 
 	public async getAgents(memberId: ObjectId, input: AgentsInquiry): Promise<Members> {
@@ -122,25 +130,22 @@ export class MemberService {
 		return result[0];
 	}
 
-	
-	public async likeTargetMember(memberId: ObjectId, likeRefId: ObjectId): Promise<Member>{
+	public async likeTargetMember(memberId: ObjectId, likeRefId: ObjectId): Promise<Member> {
 		const target: Member = await this.memberModel.findOne({ _id: likeRefId, memberStatus: MemberStatus.ACTIVE }).exec();
 		if (!target) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
 
 		const input: LikeInput = {
 			memberId: memberId,
 			likeRefId: likeRefId,
-			likeGroup: LikeGroup.MEMBER
+			likeGroup: LikeGroup.MEMBER,
 		};
 
 		//Like toggle here
 		const modifier: number = await this.likeService.toggleLike(input);
-		const result = await this.memberStatsEditor({_id: likeRefId, targetKey: "memberLikes", modifier: modifier})
+		const result = await this.memberStatsEditor({ _id: likeRefId, targetKey: 'memberLikes', modifier: modifier });
 		if (!result) throw new InternalServerErrorException(Message.SOMETHING_WENT_WRONG);
 		return result;
 	}
-
-	
 
 	public async getAllMembersByAdmin(input: MembersInquiry): Promise<Members> {
 		const { memberStatus, memberType, text } = input.search;
