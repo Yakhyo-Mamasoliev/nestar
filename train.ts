@@ -1,31 +1,54 @@
-// 2024-09-11
-// MIT 14
+// ZU-TASK:
 
-// TASK ZT:
+// Shunday function yozing, u parametridagi array ichida takrorlanmagan raqamlar yig'indisini qaytarsin.
+// MASALAN: sumOfUnique([1,2,3,2]) return 4
 
-// Shunday function yozing, bu function parametrdagi string ichida
-// bir marotabadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin
+function sumOfUnique(nums: number[]): number {
+	const frequency: { [key: number]: number } = {};
 
-// MASALAN: firstUniqueCharIndex(“stamp”); return 0;
+	nums.forEach((num) => {
+		frequency[num] = (frequency[num] || 0) + 1;
+	});
 
-// Yuqoridagi misolda, 'stamp' so'zi tarkibida barcha harflar bir marotabadan
-// ortiq takrorlanmagan, lekin shartga muvofiq, birinchi topilgan harf indeksi qaytarilmoqda.
-function firstUniqueCharIndex(s: string): number {
-	for (let i = 0; i < s.length; i++) {
-		let unique = true;
-		for (let j = 0; j < s.length; j++) {
-			if (i !== j && s[i] === s[j]) {
-				unique = false;
-				break;
-			}
+	return nums.reduce((sum, num) => {
+		if (frequency[num] === 1) {
+			return sum + num;
 		}
-		if (unique) return i;
-	}
-
-	return -1;
+		return sum;
+	}, 0);
 }
 
-console.log(firstUniqueCharIndex('stamp'));
+//
+console.log(sumOfUnique([1, 2, 3, 2])); // 4
+
+//// // 2024-09-11
+// // MIT 14
+
+// // TASK ZT:
+
+// // Shunday function yozing, bu function parametrdagi string ichida
+// // bir marotabadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin
+
+// // MASALAN: firstUniqueCharIndex(“stamp”); return 0;
+
+// // Yuqoridagi misolda, 'stamp' so'zi tarkibida barcha harflar bir marotabadan
+// // ortiq takrorlanmagan, lekin shartga muvofiq, birinchi topilgan harf indeksi qaytarilmoqda.
+// function firstUniqueCharIndex(s: string): number {
+// 	for (let i = 0; i < s.length; i++) {
+// 		let unique = true;
+// 		for (let j = 0; j < s.length; j++) {
+// 			if (i !== j && s[i] === s[j]) {
+// 				unique = false;
+// 				break;
+// 			}
+// 		}
+// 		if (unique) return i;
+// 	}
+
+// 	return -1;
+// }
+
+// console.log(firstUniqueCharIndex('stamp'));
 
 // // ZS-TASK:
 
