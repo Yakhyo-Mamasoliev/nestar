@@ -11,18 +11,17 @@ export class MemberUpdate {
 
 	@IsOptional()
 	@Field(() => MemberType, { nullable: true })
-	MemberType?: MemberType;
+	memberType?: MemberType;
 
 	@IsOptional()
 	@Field(() => MemberStatus, { nullable: true })
-	MemberStatus?: MemberStatus;
+	memberStatus?: MemberStatus;
 
 	@IsOptional()
 	@Field(() => String, { nullable: true })
 	memberPhone?: string;
 
 	@IsOptional()
-	@Length(3, 12)
 	@Field(() => String, { nullable: true })
 	memberNick?: string;
 
@@ -48,5 +47,5 @@ export class MemberUpdate {
 	@Field(() => String, { nullable: true })
 	memberDesc?: string;
 
-	deleteAt?: Date;
+	deletedAt?: Date;
 }
