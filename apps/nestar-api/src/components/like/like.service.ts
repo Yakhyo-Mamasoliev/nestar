@@ -3,12 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Like, MeLiked } from '../../libs/dto/like/like';
 import { LikeInput } from '../../libs/dto/like/like.input';
-import { Message } from '../../libs/enums/common.enum';
 import { T } from '../../libs/types/common';
-import { LikeGroup } from "../../libs/enums/like.enum";
-import { OrdinaryInquiry } from "../../libs/dto/property/property.input";
-import { Properties } from "../../libs/dto/property/property";
-import { lookupFavorite } from "../../libs/config";
+import { Message } from '../../libs/enums/common.enum';
+import { OrdinaryInquiry } from '../../libs/dto/property/property.input';
+import { Properties } from '../../libs/dto/property/property';
+import { LikeGroup } from '../../libs/enums/like.enum';
+import { lookupFavoriteData } from '../../libs/config';
 
 @Injectable()
 export class LikeService {
@@ -17,7 +17,8 @@ export class LikeService {
 	public async toggleLike(input: LikeInput): Promise<number> {
 		const search: T = { memberId: input.memberId, likeRefId: input.likeRefId };
 		const exist = await this.likeModel.findOne(search).exec();
-		let modifier = 1;
+		let modifier: number = 1;
+
 		if (exist) {
 			await this.likeModel.findOneAndDelete(search).exec();
 			modifier = -1;
@@ -25,10 +26,11 @@ export class LikeService {
 			try {
 				await this.likeModel.create(input);
 			} catch (err) {
-				console.log('Error => Service.model: ', err.message);
+				console.log('Error on toggleLike Service =>', err);
 				throw new BadRequestException(Message.CREATE_FAILED);
 			}
 		}
+
 		return modifier;
 	}
 
@@ -60,13 +62,15 @@ export class LikeService {
 						as: 'favoriteProperty',
 					},
 				},
-				{ $unwind: '$favoriteProperty' },
+				{
+					$unwind: '$favoriteProperty',
+				},
 				{
 					$facet: {
 						list: [
 							{ $skip: (page - 1) * limit },
 							{ $limit: limit },
-							lookupFavorite,
+							lookupFavoriteData,
 							{ $unwind: '$favoriteProperty.memberData' },
 						],
 						metaCounter: [{ $count: 'total' }],
@@ -74,8 +78,15 @@ export class LikeService {
 				},
 			])
 			.exec();
-		const result: Properties = { list: [], metaCounter: data[0].metaCounter };
-		result.list = data[0].list.map((ele) => ele.favoriteProperty);
+
+		const result: Properties = {
+			list: [],
+			metaCounter: data[0].metaCounter,
+		};
+
+		result.list = data[0].list.map((ele: T) => ele.favoriteProperty);
+
+		// console.log("result on getFavoriteProperties =>", result);
 		return result;
 	}
 }
